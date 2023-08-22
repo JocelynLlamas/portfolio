@@ -8,6 +8,7 @@ import layout from "../assets/img/projects/layout.png"
 import academicLayout from "../assets/img/projects/academicLayout.png"
 import dashboard from "../assets/img/projects/dashboard.png"
 import dpd from "../assets/img/projects/dpd.png"
+import weather from "../assets/img/projects/weather.png"
 
 export const Projects = () => {
 
@@ -54,6 +55,18 @@ export const Projects = () => {
             repository: "",
             imgUrl: dpd,
         },
+        {
+            title: "Weather APP",
+            description: "Developed in: React, HTML, CSS, JavaScript, AntDesign and Python",
+            repository: "https://github.com/JocelynLlamas/ClimaApp",
+            imgUrl: weather,
+        },
+        {
+            title: "Rick and Morty API",
+            description: "Developed in: React, HTML, CSS, JavaScript, Bootstrap",
+            repository: "https://github.com/JocelynLlamas/APIRickMorty",
+            imgUrl: weather,
+        },
 
     ]
     return (
@@ -63,11 +76,10 @@ export const Projects = () => {
                     <Col>
                         <h2>Projects</h2>
                         {/* MENCIONAR QUE AHI ESTAN LOS LINKS A LOS REPOSITORIOS */}
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eu maximus orci.
-                            Vivamus ullamcorper lacus nec commodo volutpat. Aliquam at.
+                        <p>My focus is on combining creative design with efficient coding to deliver exceptional digital experiences. In a variety of projects, I have shown my ability to transform ideas into visual realities, using technologies such as HTML, CSS, and JavaScript. Explore my Github profile to see how I've contributed to projects that have a positive impact on the user experience, reflecting my dedication to high-quality web design.
                         </p>
                         <Tab.Container id="projects-tabs" defaultActiveKey="firts">
-                            <Nav fill variant="tabs" defaultActiveKey="/home">
+                            <Nav fill variant="tabs" defaultActiveKey="/about">
                                 <Nav.Item>
                                     <Nav.Link eventKey="first">See my projects</Nav.Link>
                                 </Nav.Item>
@@ -89,7 +101,6 @@ export const Projects = () => {
                     </Col>
                 </Row>
             </Container>
-            {/* <img className="background-image-right" src={colorSharp2}/> */}
         </section>
     )
 }
