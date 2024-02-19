@@ -3,7 +3,7 @@ import { Container, Nav, Navbar } from 'react-bootstrap';
 import logo from '../assets/img/logo.svg';
 import navIcon1 from '../assets/img/nav-icon1.svg';
 import navIcon2 from '../assets/img/nav-icon00.jpg';
-import { FaRegEnvelope, FaMobile } from 'react-icons/fa';
+import { FaRegEnvelope, FaMobile, FaFile } from 'react-icons/fa';
 
 export const NavBar = () => {
 
@@ -26,6 +26,24 @@ export const NavBar = () => {
         setAlertMessage(`"${phone}" was copy to clipboard`);
         setShowAlert(true);
         setTimeout(() => setShowAlert(false), 3000);
+    };
+
+    const DownloadButton = () => {
+        // const fileUrl = '../assets/cv/CV-JocelynLlamas.pdf'; // URL del archivo que deseas descargar
+        // const link = document.createElement('a');
+        // link.href = URL.createObjectURL(new Blob([fileUrl]));
+        // link.setAttribute('download', 'CV-JocelynLlamas.pdf'); // Nombre del archivo que se descargará
+        // document.body.appendChild(link);
+        // link.click();
+
+        const fileName = 'bgA.jpg'; // Nombre del archivo que deseas descargar
+        const fileUrl = `../assets/img/${fileName}` // Ruta relativa del archivo
+        const link = document.createElement('a');
+        console.log(link);
+        link.href = URL.createObjectURL(new Blob([fileUrl]));
+        link.setAttribute('download', fileName);
+        document.body.appendChild(link);
+        link.click();
     };
 
     useEffect(() => {
@@ -71,6 +89,9 @@ export const NavBar = () => {
 
                             <a onClick={handleCopyPhone} className="iconLink">
                                 <FaMobile />
+                            </a>
+                            <a onClick={DownloadButton} className="iconLink">
+                                <FaFile />
                             </a>
                             {showAlert && (
                                 <div className="alert alert-success alert-dismissible fade show" role="alert">
