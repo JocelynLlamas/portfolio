@@ -1,13 +1,14 @@
 import { Container, Row, Col, Card } from "react-bootstrap";
-import uaslp from "../assets/img/uaslpWhite.png";
+import uaslp from "../assets/img/prom1.png";
+import illustration from "../assets/img/Illustration.png";
 
 export const Education = () => {
     return (
         <section className="education" id="education">
-            <Container>
+            <Container style={{ display: 'flex', justifyContent: 'center' }}>
                 <Row className="education-bx">
                     <Col className="d-flex p-4 justify-content-center align-items-center">
-                        <img src={uaslp} alt="education" />
+                        <img className="promImg" src={uaslp} alt="education" />
                     </Col>
                     <Col className="d-flex justify-content-center align-items-center">
                         <Row style={{ margin: "0 auto" }}>
@@ -26,6 +27,7 @@ export const Education = () => {
                     </Col>
                 </Row>
             </Container>
+                <img className="Illustration" src={illustration} alt="education" />
         </section>
     )
 };

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { ArrowRightCircle } from "react-bootstrap-icons";
-import headerImg from "../assets/img/banner/bannerGirl.png"
+import headerImg from "../assets/img/banner/mac.png"
+import topImg from "../assets/img/banner/Illustration top.png"
 
 export const Banner = () => {
 
@@ -44,18 +45,19 @@ export const Banner = () => {
 
 
     return (
-        <section className="banner" id="home">
+        <section className="banner" id="about">
             <Container>
                 <Row className="align-items-center">
                     <Col xs={12} md={6} xl={7}>
+                        <img src={topImg} alt="top Img" className="imgTop" />
                         <span className="tagline">Welcome to my Portfolio</span>
                         <h1>{`Hi I'm Jocelyn Llamas`} <span className="wrap">{text}</span> </h1>
                         <p>Computer Engineering student focused on
                             improving his skills and interested in web
                             development.</p>
                     </Col>
-                    <Col xs={12} md={6} xl={5}>
-                        <img src={headerImg} alt="Header Img" />
+                    <Col xs={12} md={6} xl={5} className="imgBox">
+                        <img className="headerImg" src={headerImg} alt="Header Img" />
                     </Col>
                 </Row>
             </Container>

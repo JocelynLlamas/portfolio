@@ -46,8 +46,6 @@ export const Skills = () => {
                             <h2>
                                 Technical Skills
                             </h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eu maximus orci.
-                                Vivamus ullamcorper lacus nec commodo volutpat. Aliquam at.</p>
 
                             <Carousel responsive={responsive} infinite={true} className="skill-slider">
                                 <div className="item">

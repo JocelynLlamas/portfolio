@@ -32,10 +32,11 @@ export const Footer = () => {
         <footer className="footer">
             <Container >
                 <Row className="align-item-center">
-                    <Col sm={6}>
+                    {/* <Col sm={6}>
                         <img src={logo} alt="Logo" />
-                    </Col>
-                    <Col sm={6} className="text-center text-sm-end">
+                        <p>Background Imge from: <a href="https://www.freepik.es/vector-gratis/fondo-desenfocado-tonos-azules_900411.htm#query=gradient&position=27&from_view=search&track=sph">Freepik</a></p>
+                    </Col> */}
+                    <Col sm={12} className="text-center text-sm-end">
                         <div className="social-icon">
                             <a href='https://www.linkedin.com/in/mar%C3%ADa-jocelyn-llamas-de-la-torre-08aa36251/'><img src={navIcon1} /></a>
                             <a href='https://github.com/JocelynLlamas'><img src={navIcon2} /></a>
