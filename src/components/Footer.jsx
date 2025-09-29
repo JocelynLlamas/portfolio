@@ -1,79 +1,186 @@
 import { Col, Container, Row } from "react-bootstrap"
-import navIcon1 from '../assets/img/nav-icon1.svg';
-import navIcon2 from '../assets/img/nav-icon00.jpg';
-import navIcon3 from '../assets/img/email.png';
-import { FaRegEnvelope, FaMobile } from 'react-icons/fa';
-import logo from '../assets/img/logo.svg';
-import { useState } from "react";
+import {
+    FaRegEnvelope,
+    FaMobile,
+    FaLinkedin,
+    FaGithub,
+    FaFileDownload,
+    FaArrowUp,
+    FaMapMarkerAlt,
+    FaHeart
+} from 'react-icons/fa';
+import { useState, useEffect } from "react";
 
 export const Footer = () => {
+    const [email] = useState("llamasjocelyn@outlook.com");
+    const [phone] = useState("+52 418 118 9299");
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
+    const [showScrollTop, setShowScrollTop] = useState(false);
 
-    const [email, setEmail] = useState("llamasjocelyn@outlook.com");
-    const [phone, setPhone] = useState("4181189299");
-    const [showAlert, setShowAlert] = useState(false);
-    const [alertMessage, setAlertMessage] = useState("");
+    useEffect(() => {
+        const handleScroll = () => {
+            setShowScrollTop(window.scrollY > 400);
+        };
 
-    const handleCopy = () => {
-        navigator.clipboard.writeText(email);
-        setAlertMessage(`"${email}" was copy to clipboard`);
-        setShowAlert(true);
-        setTimeout(() => setShowAlert(false), 3000);
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    const handleCopyPhone = () => {
-        navigator.clipboard.writeText(phone);
-        setAlertMessage(`"${phone}" was copy to clipboard`);
-        setShowAlert(true);
-        setTimeout(() => setShowAlert(false), 3000);
+    const handleCopy = (text, type) => {
+        navigator.clipboard.writeText(text);
+        setToastMessage(`${type} copiado al portapapeles ✔️`);
+        setShowToast(true);
+        setTimeout(() => setShowToast(false), 3000);
     };
 
+    const downloadCV = () => {
+        const link = document.createElement('a');
+        link.href = '/assets/CV-JocelynLlamas.pdf';
+        link.setAttribute('download', 'CV-JocelynLlamas.pdf');
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+    };
+
+    const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="footer">
-            <Container >
-                <Row className="align-item-center">
-                    {/* <Col sm={6}>
-                        <img src={logo} alt="Logo" />
-                        <p>Background Imge from: <a href="https://www.freepik.es/vector-gratis/fondo-desenfocado-tonos-azules_900411.htm#query=gradient&position=27&from_view=search&track=sph">Freepik</a></p>
-                    </Col> */}
-                    <Col sm={12} className="text-center text-sm-end">
-                        <div className="social-icon">
-                            <a href='https://www.linkedin.com/in/mar%C3%ADa-jocelyn-llamas-de-la-torre-08aa36251/'><img src={navIcon1} /></a>
-                            <a href='https://github.com/JocelynLlamas'><img src={navIcon2} /></a>
-                            <a onClick={handleCopy} className="iconLink">
-                                <FaRegEnvelope/>
-                            </a>
-                            {showAlert && (
-                                <div className="alert alert-success alert-dismissible fade show" role="alert">
-                                    {alertMessage}
-                                    <button
-                                        type="button"
-                                        className="btn-close"
-                                        data-bs-dismiss="alert"
-                                        aria-label="Close"
-                                        onClick={() => setShowAlert(false)}
-                                    ></button>
+        <>
+            <footer className="footer-section">
+                <Container>
+                    {/* Main Footer Content */}
+                    <Row className="footer-content">
+                        {/* Brand & Description */}
+                        <Col xs={12} lg={4} className="footer-brand">
+                            <div className="brand-info">
+                                <h3 className="brand-name">Jocelyn Llamas</h3>
+                                <p className="brand-title">Computer Engineer & Web Developer</p>
+                                <p className="brand-description">
+                                    Passionate about creating amazing digital experiences with modern technologies.
+                                </p>
+                                <div className="location">
+                                    <FaMapMarkerAlt className="location-icon" />
+                                    <span>San Luis Potosí, México</span>
                                 </div>
-                            )}
-                            <a onClick={handleCopyPhone} className="iconLink">
-                                <FaMobile/>
-                            </a>
-                            {showAlert && (
-                                <div className="alert alert-success alert-dismissible fade show" role="alert">
-                                    {alertMessage}
-                                    <button
-                                        type="button"
-                                        className="btn-close"
-                                        data-bs-dismiss="alert"
-                                        aria-label="Close"
-                                        onClick={() => setShowAlert(false)}
-                                    ></button>
+                            </div>
+                        </Col>
+
+                        {/* Quick Links */}
+                        <Col xs={12} md={6} lg={4} className="footer-links">
+                            <h4 className="links-title">Quick Links</h4>
+                            <div className="links-grid">
+                                <a href="#about" className="footer-link">About</a>
+                                <a href="#experience" className="footer-link">Experience</a>
+                                <a href="#skills" className="footer-link">Skills</a>
+                                <a href="#projects" className="footer-link">Projects</a>
+                                <a href="#education" className="footer-link">Education</a>
+                            </div>
+                        </Col>
+
+                        {/* Contact & Social */}
+                        <Col xs={12} md={6} lg={4} className="footer-contact">
+                            <h4 className="contact-title">Get In Touch</h4>
+
+                            {/* Contact Info */}
+                            <div className="contact-info">
+                                <div
+                                    className="contact-item"
+                                    onClick={() => handleCopy(email, "Email")}
+                                >
+                                    <div className="contact-icon">
+                                        <FaRegEnvelope />
+                                    </div>
+                                    <div className="contact-details">
+                                        <span className="contact-label">Email</span>
+                                        <span className="contact-value">{email}</span>
+                                    </div>
                                 </div>
-                            )}
-                        </div>
-                    </Col>
-                </Row>
-            </Container>
-        </footer>
-    )
-}
+
+                                <div
+                                    className="contact-item"
+                                    onClick={() => handleCopy(phone, "Teléfono")}
+                                >
+                                    <div className="contact-icon">
+                                        <FaMobile />
+                                    </div>
+                                    <div className="contact-details">
+                                        <span className="contact-label">Phone</span>
+                                        <span className="contact-value">{phone}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Social Links */}
+                            <div className="social-links">
+                                <a
+                                    href='https://www.linkedin.com/in/mar%C3%ADa-jocelyn-llamas-de-la-torre-08aa36251/'
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="social-link linkedin"
+                                    title="LinkedIn"
+                                >
+                                    <FaLinkedin />
+                                </a>
+                                <a
+                                    href='https://github.com/JocelynLlamas'
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="social-link github"
+                                    title="GitHub"
+                                >
+                                    <FaGithub />
+                                </a>
+                            </div>
+
+                            {/* Download CV */}
+                            <button
+                                className="download-cv-btn"
+                                onClick={downloadCV}
+                            >
+                                <FaFileDownload className="btn-icon" />
+                                Download CV
+                            </button>
+                        </Col>
+                    </Row>
+
+                    {/* Footer Bottom */}
+                    <Row className="footer-bottom">
+                        <Col>
+                            <div className="footer-divider"></div>
+                            <div className="bottom-content">
+                                <div className="copyright">
+                                    <p>
+                                        © {currentYear} Jocelyn Llamas. Made with <FaHeart className="heart-icon" /> using React
+                                    </p>
+                                </div>
+                                <div className="footer-actions">
+                                    <button
+                                        className={`scroll-top-btn ${showScrollTop ? 'visible' : ''}`}
+                                        onClick={scrollToTop}
+                                        title="Back to top"
+                                    >
+                                        <FaArrowUp />
+                                    </button>
+                                </div>
+                            </div>
+                        </Col>
+                    </Row>
+                </Container>
+            </footer>
+
+            {/* Toast Notification */}
+            {showToast && (
+                <div className="footer-toast">
+                    <div className="toast-content">
+                        <div className="toast-message">{toastMessage}</div>
+                    </div>
+                </div>
+            )}
+        </>
+    );
+};
