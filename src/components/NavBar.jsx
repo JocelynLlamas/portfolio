@@ -5,11 +5,9 @@ import {
     FaFile,
     FaBars,
     FaTimes,
-    FaCopy,
     FaCheck
 } from 'react-icons/fa';
 import { HiMail, HiPhone } from 'react-icons/hi';
-import { IoMailOutline, IoCallOutline } from 'react-icons/io5';
 import navIcon1 from '../assets/img/nav-icon1.jpg';
 import navIcon2 from '../assets/img/nav-icon00.png';
 
@@ -24,14 +22,62 @@ export const NavBar = () => {
     const email = "llamasjocelyn@outlook.com";
     const phone = "4181189299";
 
+    const navItems = [
+        { id: 'about', label: 'About' },
+        { id: 'education', label: 'Education' },
+        { id: 'experience', label: 'Experience' },
+        { id: 'skills', label: 'Skills' },
+        { id: 'projects', label: 'Projects' },
+    ];
+
+    // Efecto para detectar scroll y cambiar sección activa
     useEffect(() => {
         const handleScroll = () => {
+            // Detectar si se ha hecho scroll
             setScrolled(window.scrollY > 20);
+
+            // Detectar sección activa basada en la posición del scroll
+            const sections = navItems.map(item => document.getElementById(item.id));
+            const scrollPosition = window.scrollY + 100; // Offset para activar antes
+
+            let currentSection = 'about';
+
+            for (const section of sections) {
+                if (!section) continue;
+
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    currentSection = section.id;
+                    break;
+                }
+            }
+
+            // Si estamos en la parte superior, activar la primera sección
+            if (scrollPosition < sections[0]?.offsetTop) {
+                currentSection = 'about';
+            }
+
+            // Si estamos al final, activar la última sección
+            const documentHeight = document.documentElement.scrollHeight;
+            const windowHeight = window.innerHeight;
+            if (window.scrollY + windowHeight >= documentHeight - 100) {
+                currentSection = navItems[navItems.length - 1].id;
+            }
+
+            setActiveLink(currentSection);
         };
+
         window.addEventListener('scroll', handleScroll);
+
+        // Ejecutar una vez al cargar para establecer la sección activa inicial
+        handleScroll();
+
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    // Efecto para cerrar menú móvil al hacer scroll
     useEffect(() => {
         if (mobileMenuOpen) {
             setMobileMenuOpen(false);
@@ -65,13 +111,21 @@ export const NavBar = () => {
         link.remove();
     };
 
-    const navItems = [
-        { id: 'about', label: 'About' },
-        { id: 'education', label: 'Education' },
-        { id: 'experience', label: 'Experience' },
-        { id: 'skills', label: 'Skills' },
-        { id: 'projects', label: 'Projects' },
-    ];
+    const handleNavClick = (sectionId) => {
+        setActiveLink(sectionId);
+        setMobileMenuOpen(false);
+
+        // Scroll suave a la sección
+        const element = document.getElementById(sectionId);
+        if (element) {
+            const offset = 80; // Ajuste para el navbar fijo
+            const elementPosition = element.offsetTop - offset;
+            window.scrollTo({
+                top: elementPosition,
+                behavior: 'smooth'
+            });
+        }
+    };
 
     return (
         <>
@@ -96,7 +150,10 @@ export const NavBar = () => {
                             <a
                                 key={item.id}
                                 href={`#${item.id}`}
-                                onClick={() => setActiveLink(item.id)}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    handleNavClick(item.id);
+                                }}
                                 className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg ${activeLink === item.id
                                         ? 'text-gray-900 bg-gray-100/80'
                                         : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50/50'
@@ -109,7 +166,6 @@ export const NavBar = () => {
                             </a>
                         ))}
                     </nav>
-
 
                     {/* Mobile Menu Button */}
                     <button
@@ -129,9 +185,9 @@ export const NavBar = () => {
                                 <a
                                     key={item.id}
                                     href={`#${item.id}`}
-                                    onClick={() => {
-                                        setActiveLink(item.id);
-                                        setMobileMenuOpen(false);
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        handleNavClick(item.id);
                                     }}
                                     className={`px-4 py-3 text-sm font-medium rounded-lg transition-all duration-300 ${activeLink === item.id
                                             ? 'text-gray-900 bg-blue-50 border-l-4 border-blue-500'
@@ -143,12 +199,11 @@ export const NavBar = () => {
                             ))}
                         </nav>
 
-                       
                     </div>
                 </div>
             </header>
 
-            {/* Toast Notification Mejorado */}
+            {/* Toast Notification */}
             {showToast && (
                 <div className="fixed top-5 right-5 bg-gray-900 text-white px-6 py-3 rounded-xl shadow-2xl z-50 text-sm animate-fade-in-out backdrop-blur-sm border border-gray-700">
                     <div className="flex items-center space-x-3">
